@@ -53,8 +53,6 @@ vector<pair<int,int> > findIncorrect(char grid[5][5], char grid2[5][5]) {
 void calculateMoves(char grid[5][5], char grid2[5][5], 
         vector<pair<pair<int,int>,pair<int,int> > > paths, 
         int curr_move, int max_move) {
-    
-
 
     // // debugging prints
     
@@ -73,10 +71,8 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
     // cout << endl << endl;   
 
 
-
     // max number of moves reached.. return
     if(curr_move>max_move) {
-        cout << "failed attempt" << endl;
         return;
     }
 
@@ -115,6 +111,10 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
 
             // recurse
             calculateMoves(grid, grid2, paths, curr_move+1, max_move);
+
+            // swap back characters and reset path
+            grid[point2.first][point2.second] = grid[point1.first][point1.second];
+            grid[point1.first][point1.second] = temp;
             paths.pop_back();
         }
     }
@@ -195,6 +195,10 @@ int main() {
     cout << endl << endl << "CALCULATING MOVES FOR WAFFLEGAME";
     printGrids(gridGiven, gridSolved,-1,-1);
 
+    vector<pair<pair<int,int>,pair<int,int> > > paths;
+    calculateMoves(gridGiven, gridSolved, paths, 0, moves);
+
+
     // // Debug code -- comment everything above out
     // char gridGiven[5][5] = {{'B','A','A','A','A'},
     //                         {'C',' ','A',' ','A'},
@@ -202,29 +206,23 @@ int main() {
     //                         {'A',' ','A',' ','A'},
     //                         {'A','A','A','A','A'}};
 
-    // char gridSolved[5][5] = {{'A','A','A','A','B'},
-    //                          {'A',' ','A',' ','C'},
-    //                          {'A','A','A','A','A'},
+    // char gridSolved[5][5] = {{'A','A','A','A','C'},
     //                          {'A',' ','A',' ','A'},
+    //                          {'A','A','A','A','A'},
+    //                          {'A',' ','A',' ','B'},
     //                          {'A','A','A','A','A'}};
 
     // vector<pair<int,int> > incorrects;
     // incorrects = findIncorrect(gridGiven,gridSolved);
     // cout << incorrects.size() << endl;
-    // for(int i=0; i<incorrects.size(); i++) {
+    // for(unsigned int i=0; i<incorrects.size(); i++) {
     //     cout << "(" << incorrects[i].first << ", " << incorrects[i].second << ") "; 
     // }
 
     // vector<pair<pair<int,int>,pair<int,int> > > paths;
-    // calculateMoves(gridGiven, gridSolved, paths, 0, moves);
+    // calculateMoves(gridGiven, gridSolved, paths, 0, 3);
 
-    // // END TESTING
-
-    vector<pair<pair<int,int>,pair<int,int> > > paths;
-    calculateMoves(gridGiven, gridSolved, paths, 0, moves);
-
-    cout << endl;
-
+    // // END Debug code
 
 
     return 0;
