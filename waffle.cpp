@@ -54,13 +54,16 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
         vector<pair<pair<int,int>,pair<int,int> > > paths, 
         int curr_move, int max_move) {
     
-    for(unsigned int i=0; i<paths.size(); i++) {
-        cout << "!@#(" << paths[i].first.first << ", " << paths[i].first.second 
-                << ")-(" << paths[i].second.first << ", " << paths[i].second.second 
-                << ")" << endl;
-    }
+
 
     // // debugging prints
+    
+    // for(unsigned int i=0; i<paths.size(); i++) {
+    //     cout << "!@#(" << paths[i].first.first << ", " << paths[i].first.second 
+    //             << ")-(" << paths[i].second.first << ", " << paths[i].second.second 
+    //             << ")" << endl;
+    // }
+
     // cout << endl << "     on move " << curr_move << endl;
     // for(unsigned int i=0; i<paths.size(); i++) {
     //     cout << "  (" << paths[i].first.first << ", " << paths[i].first.second 
