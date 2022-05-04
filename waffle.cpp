@@ -97,19 +97,27 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
             grid[point1.first][point1.second] = grid[point2.first][point2.second];
             grid[point2.first][point2.second] = temp;
 
-            // add the swapped points to our path vector to keep track
-            pair<pair<int,int>, pair<int,int> > swappedPoints;
-            swappedPoints.first = point1;
-            swappedPoints.second = point2;
-            paths.push_back(swappedPoints);
+            // only recurse if the swap has less incorrects
+            vector<pair<int,int> > temp_incorrects;
+            temp_incorrects = findIncorrect(grid,grid2);
+            if(temp_incorrects.size() < incorrects.size()) {
 
-            // recurse
-            calculateMoves(grid, grid2, paths, curr_move+1, max_move);
+                // add the swapped points to our path vector to keep track
+                pair<pair<int,int>, pair<int,int> > swappedPoints;
+                swappedPoints.first = point1;
+                swappedPoints.second = point2;
+                paths.push_back(swappedPoints);
 
-            // swap back characters and reset path
+                // recurse
+                calculateMoves(grid, grid2, paths, curr_move+1, max_move);
+                
+                // remove new point from path for other recurses
+                paths.pop_back();
+            }
+
+            // swap back characters 
             grid[point2.first][point2.second] = grid[point1.first][point1.second];
             grid[point1.first][point1.second] = temp;
-            paths.pop_back();
         }
     }
     return;
