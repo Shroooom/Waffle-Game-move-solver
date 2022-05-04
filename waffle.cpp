@@ -23,7 +23,7 @@ void printGrids(char grid[5][5], char grid2[5][5], int curr_x, int curr_y) {
         cout << "   |  ";
         // grid 2 print
         for(int j=0; j<5; j++) {
-            if(i+5==curr_x && j+5==curr_y) {
+            if(i+5==curr_x && j==curr_y) {
                 cout << " _";
             }
             else {
@@ -54,23 +54,6 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
         vector<pair<pair<int,int>,pair<int,int> > > paths, 
         int curr_move, int max_move) {
 
-    // // debugging prints
-    
-    // for(unsigned int i=0; i<paths.size(); i++) {
-    //     cout << "!@#(" << paths[i].first.first << ", " << paths[i].first.second 
-    //             << ")-(" << paths[i].second.first << ", " << paths[i].second.second 
-    //             << ")" << endl;
-    // }
-
-    // cout << endl << "     on move " << curr_move << endl;
-    // for(unsigned int i=0; i<paths.size(); i++) {
-    //     cout << "  (" << paths[i].first.first << ", " << paths[i].first.second 
-    //             << ")-(" << paths[i].second.first << ", " << paths[i].second.second 
-    //             << ")" << endl;
-    // }
-    // cout << endl << endl;   
-
-
     // max number of moves reached.. return
     if(curr_move>max_move) {
         return;
@@ -80,6 +63,7 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
     incorrects = findIncorrect(grid,grid2);
     // grid is solved.. return
     if(incorrects.size() == 0 ) {
+        cout << "------------------------" << endl;
         printGrids(grid, grid2,-1,-1);
         cout << endl << "Solved in " << curr_move << " moves:" << endl;
         for(unsigned int i=0; i<paths.size(); i++) {
@@ -87,9 +71,19 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
                  << ") <-> (" << paths[i].second.first << ", " << paths[i].second.second 
                  << ")" << endl;
         }
-        cout << endl << endl;
+        cout << endl;
         return;
     }
+
+    //grid is not possible to be solved.. return
+    if(incorrects.size()==1) {
+        cout << "you should not be here" << endl;
+        return;
+    }
+    if(incorrects.size()>2 && max_move-curr_move < 2) {
+        return;
+    }
+
 
     // recursion .. tries every possible combination 
     for(unsigned int i=0; i<incorrects.size()-1; i++) {
@@ -160,8 +154,6 @@ int main() {
                 gridSolved[i-5][j] = letter;
             }
 
-           
-           
            
            
             // RESTART GRID 
