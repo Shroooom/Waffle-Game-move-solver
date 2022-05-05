@@ -150,11 +150,19 @@ int main() {
             printGrids(gridGiven, gridSolved, i,j);
             
             cout << endl << " type \"0\" to restart" << endl;
-            cout << endl << " Insert letter at underline:";
+            cout << endl << " Insert letter at underline: ";
             // get input from user
             char letter;
             cin >> letter;
+            while(!isalpha(letter)) {
+                cout << "only enter A-Z: ";
+                cin >> letter;            
+            }
             
+            if(islower(letter)) {
+                letter = toupper(letter);
+            }
+
             if(i<5) {
                 gridGiven[i][j] = letter;
             }
