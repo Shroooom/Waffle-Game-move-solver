@@ -6,10 +6,13 @@ After a weeks of continuously inputting, I have not found a solution with only 9
 10 move solutions however are abundant
 
 
+
+
+## EXAMPLE RUN ##
+
 run with:
 ./waffle.exe
 
-## EXAMPLE RUN ##
 
 Begin to enter the given graph and solved graph
 
