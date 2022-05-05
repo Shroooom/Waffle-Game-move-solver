@@ -8,7 +8,7 @@ using namespace std;
 // Print both grids for visual use
 void printGrids(char grid[5][5], char grid2[5][5], int curr_x, int curr_y) {
     for(int i=0; i<5; i++) {
-        cout << endl << " ";
+        cout << endl << "  ";
         // grid 1 print
         for(int j=0; j<5; j++) {
             if(i==curr_x && j==curr_y) {
@@ -63,11 +63,11 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
     incorrects = findIncorrect(grid,grid2);
     // grid is solved.. return
     if(incorrects.size() == 0 ) {
-        cout << "------------------------" << endl;
+        cout << endl << "------------------------------" << endl;
         printGrids(grid, grid2,-1,-1);
-        cout << endl << "Solved in " << curr_move << " moves:" << endl;
+        cout << endl << " Solved in " << curr_move << " moves:" << endl;
         for(unsigned int i=0; i<paths.size(); i++) {
-            cout << "   (" << paths[i].first.first << ", " << paths[i].first.second 
+            cout << "    (" << paths[i].first.first << ", " << paths[i].first.second 
                  << ") <-> (" << paths[i].second.first << ", " << paths[i].second.second 
                  << ")" << endl;
         }
@@ -80,7 +80,7 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
         cout << "you should not be here" << endl;
         return;
     }
-    if(incorrects.size()>2 && max_move-curr_move < 2) {
+    if((int)incorrects.size() > (max_move-curr_move)*2 ) {   
         return;
     }
 
@@ -125,17 +125,17 @@ void calculateMoves(char grid[5][5], char grid2[5][5],
 
 int main() {
 
-    char gridGiven[5][5] = {{'x','x','x','x','x'},
-                            {'x',' ','x',' ','x'},
-                            {'x','x','x','x','x'},
-                            {'x',' ','x',' ','x'},
-                            {'x','x','x','x','x'}};
+    char gridGiven[5][5] = {{'?','?','?','?','?'},
+                            {'?',' ','?',' ','?'},
+                            {'?','?','?','?','?'},
+                            {'?',' ','?',' ','?'},
+                            {'?','?','?','?','?'}};
 
-    char gridSolved[5][5] = {{'x','x','x','x','x'},
-                             {'x',' ','x',' ','x'},
-                             {'x','x','x','x','x'},
-                             {'x',' ','x',' ','x'},
-                             {'x','x','x','x','x'}};
+    char gridSolved[5][5] = {{'?','?','?','?','?'},
+                             {'?',' ','?',' ','?'},
+                             {'?','?','?','?','?'},
+                             {'?',' ','?',' ','?'},
+                             {'?','?','?','?','?'}};
 
     // Print visual of what the User is supposed to answer
     for(int i=0; i<10; i++) {
@@ -146,11 +146,11 @@ int main() {
                (i==6&&j==3) || (i==8&&j==3)) {
                 continue;
             }
-            cout << endl << endl << "--GIVEN GRID--|--SOLVED GRID--";
+            cout << endl << endl << " --GIVEN GRID--|--SOLVED GRID--";
             printGrids(gridGiven, gridSolved, i,j);
             
-            cout << endl << "type \"0\" to restart" << endl;
-            cout << endl << "Insert letter at underline:";
+            cout << endl << " type \"0\" to restart" << endl;
+            cout << endl << " Insert letter at underline:";
             // get input from user
             char letter;
             cin >> letter;
@@ -166,7 +166,7 @@ int main() {
            
             // RESTART GRID 
             if(letter=='0') {
-                cout << endl << "---------RESTARTING---------";
+                cout << endl << " ---------RESTARTING---------";
                 sleep(1);
                 for(int l=0; l<5; l++) {
                     for(int m=0; m<5; m++) {
@@ -186,13 +186,17 @@ int main() {
             }
         }
     }
-    cout << endl << endl << "How many moves would you like to calculate? (max 15)";
+
+    cout << endl << endl << " --GIVEN GRID--|--SOLVED GRID--";
+    printGrids(gridGiven, gridSolved, -1, -1);
+
+    cout << endl << endl << " How many moves would you like to calculate? (max 15) " << endl << " ";
     int moves;
     do {
         cin >> moves;
     } while (moves>15 || moves<0);
 
-    cout << endl << endl << "CALCULATING MOVES FOR WAFFLEGAME";
+    cout << endl << endl << " CALCULATING MOVES FOR WAFFLE:";
     printGrids(gridGiven, gridSolved,-1,-1);
 
     vector<pair<pair<int,int>,pair<int,int> > > paths;
