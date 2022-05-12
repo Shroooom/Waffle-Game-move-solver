@@ -14,7 +14,7 @@ run with:
 ./waffle.exe
 
 
-Begin to enter the given graph and solved graph
+Begin to enter the given grid and solved grid
 
 ![](https://github.com/Shroooom/Waffle-Game-move-solver/blob/main/Screenshots/ss1%20-.png)
   
